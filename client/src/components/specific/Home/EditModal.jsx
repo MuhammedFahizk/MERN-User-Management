@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Input, Form, Button, Select, notification } from "antd";
 import { useForm, Controller } from "react-hook-form";
+import { updateProfile } from "../../../services/patchApi";
 
 const { Option } = Select;
 
 const EditModal = ({ visible, onClose, user }) => {
+  const [loading, setLoading] = useState(false);
+
   const {
     control,
     handleSubmit,
@@ -21,8 +24,9 @@ const EditModal = ({ visible, onClose, user }) => {
 
   const onFinish = async (data) => {
     try {
+      setLoading(true);
       console.log("Updated data:", data);
-      
+      await updateProfile(data);
       notification.success({ message: "Profile updated successfully!" });
       onClose();
     } catch (error) {
@@ -30,6 +34,8 @@ const EditModal = ({ visible, onClose, user }) => {
         message: "Update failed",
         description: error.message,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,7 +48,7 @@ const EditModal = ({ visible, onClose, user }) => {
         <Button key="back" onClick={onClose}>
           Cancel
         </Button>,
-        <Button key="submit" type="primary" onClick={handleSubmit(onFinish)}>
+        <Button key="submit" type="primary" onClick={handleSubmit(onFinish)} loading={loading}>
           Save
         </Button>,
       ]}

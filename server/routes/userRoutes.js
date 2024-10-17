@@ -45,6 +45,16 @@ router.post("/reauth", userControllers.refreshAccessToken);
  */
 router.post("/logout", requireAuthentication, userControllers.logout);
 
+
+/**
+ * @method - PATCH
+ * @param {string} path - /api/users/profile
+ * @description - Update User Profile
+ */
+router.patch("/profile", requireAuthentication, userControllers.updateProfile);
+
+
+
 /**
  * @method - POST
  * @param {string} path - /api/users/master-logout

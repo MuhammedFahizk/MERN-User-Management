@@ -100,3 +100,40 @@ export const logoutAllDevices = async (req, res, next) => {
     }
   };
   
+
+  /*
+  4. UPDATE USER PROFILE
+*/
+export const updateProfile = async (req, res, next) => {
+    try {
+      const userId = req.userId;
+      const updates = req.body; 
+  
+    
+  
+      const user = await User.findByIdAndUpdate(userId, updates, {
+        new: true, 
+        runValidators: true, 
+      });
+  
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      }
+  
+      res.json({
+        success: true,
+        user,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: "An error occurred while updating the profile",
+        error: error.message,
+      });
+    }
+  };
+  

@@ -32,7 +32,7 @@ const Login = () => {
   };
   return (
     <Form
-      className="w-[400px] mx-auto" 
+      className="md:w-[400px] w-[300px] mx-auto" 
       style={{ maxWidth: 600 }}
       onFinish={handleSubmit(onFinish)}
     >
@@ -89,31 +89,7 @@ const Login = () => {
           )}
         />
       </Form.Item>
-      <Div className={'flex justify-between h-full items-top'}>
-        <Form.Item
-          className=" "
-          name="remember"
-          valuePropName="checked"
-          validateStatus={errors.remember ? "error" : ""}
-          help={errors.remember ? errors.remember.message : ""}
-        >
-          <Controller
-            control={control}
-            rules={{
-              required: "You must agree to the terms",
-            }}
-            name="remember"
-            render={({ field }) => (
-              <Checkbox className="ms-auto" {...field}>
-                Remember me
-              </Checkbox>
-            )}
-          />
-        </Form.Item>
-        <Text className={'mt-1 cursor-pointer text-blue-400'}>
-          Forgot Password?
-        </Text>
-      </Div>
+      
       <Form.Item>
         <Button type="primary" htmlType="submit" size="large" block>
           Login

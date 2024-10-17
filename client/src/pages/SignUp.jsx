@@ -5,7 +5,7 @@ import LeftSide from "../components/specific/signUp/LeftSide"
 
 const SignUp = () => {
   return (
-    <Div className={'grid grid-cols-2'}>
+    <Div className={'grid md:grid-cols-2'}>
 
         <LeftSide/>
     </Div>

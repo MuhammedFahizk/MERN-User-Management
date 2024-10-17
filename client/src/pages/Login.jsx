@@ -3,7 +3,7 @@ import LeftSide from "../components/specific/Login/LeftSide";
 
 const Login = () => {
     return (
-        <Div className={' grid grid-cols-2'}>
+        <Div className={' grid md:grid-cols-2'}>
             <LeftSide/>
            
         </Div>

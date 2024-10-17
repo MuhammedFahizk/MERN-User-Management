@@ -5,8 +5,12 @@ import { MdAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FiUser } from "react-icons/fi";
 import { signupUser } from "../../../services/postApi";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setAccessToken } from "../../../Redux/feathers/auth";
 
 const Signup = () => {
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -17,6 +21,12 @@ const Signup = () => {
   const onFinish = async (data) => {
     try {
       const response = await signupUser(data);
+      console.log(response);
+      const {accessToken} = response;
+      
+      dispatch(setAccessToken(accessToken))
+      notification.success({ message: "Signup successful!", description: response.message });
+
       notification.success({ message: "Signup successful!", description: response.message });
     } catch (error) {
       notification.error({ message: "Signup failed", description: error.message });
@@ -25,7 +35,7 @@ const Signup = () => {
 
   return (
     <Form
-      className="w-[400px] mx-auto"
+      className="md:w-[400px] w-[300px]  mx-auto"
       style={{ maxWidth: 600 }}
       onFinish={handleSubmit(onFinish)}
     >
