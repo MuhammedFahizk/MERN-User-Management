@@ -59,6 +59,27 @@ A user profile management application built with React and Node.js. It allows us
 
 - **React Version**: Ensure compatibility with `@reduxjs/toolkit` and other React-specific libraries.
 
+# Server Environment Variables Documentation 🌐
+
+This document outlines the environment variables used in the server setup for the User Profile Management application.
+
+## Environment Variables 📜
+
+| Variable                         | Description                                                             |
+|----------------------------------|-------------------------------------------------------------------------|
+| `VITE_API_URL`                  | The base URL for the API, used to make requests to the server.         |
+| `PORT`                           | The port on which the server runs (default: `5000`).                   |
+| `MONGO_URI`                     | Connection string for MongoDB, including user credentials.             |
+| `AUTH_ACCESS_TOKEN_SECRET`      | Secret key used for signing the JWT access token.                      |
+| `AUTH_REFRESH_TOKEN_SECRET`     | Secret key used for signing the JWT refresh token.                     |
+| `CLIENT_URL`                    | The URL of the client application (default: `http://localhost:5173`).  |
+| `SALT_ROUNDS`                   | The number of rounds used for hashing passwords (default: `12`).       |
+
+## Example Usage 🛠️
+
+To set up the environment variables, create a `.env` file in the root of your server project and include the following:
+
+
 ### Dependencies 📦
 - `@reduxjs/toolkit`, `redux`, `react-redux`, `redux-thunk`, `redux-persist`: For state management.
 - `antd`: UI library for React.
