@@ -106,5 +106,5 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-- **GitHub**: [your-username](https://github.com/your-username)
-- **Email**: your-email@example.com
+- **GitHub**: https://github.com/MuhammedFahizk 
+- **Email**: fahizk100@gmail.com
