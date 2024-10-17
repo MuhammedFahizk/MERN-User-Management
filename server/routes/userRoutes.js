@@ -1,6 +1,6 @@
-import express from 'express';
-import userControllers  from '../controllers/index.js'
-import { requireAuthentication } from '../middleware/autchCheck.js';
+import express from "express";
+import userControllers from "../controllers/index.js";
+import { requireAuthentication } from "../middleware/autchCheck.js";
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ const router = express.Router();
  * @param {Object} res - Express response object for sending responses
  * @returns {Object} - Response object containing the message and user data or error details
  */
-router.post('/register', userControllers.register);
+router.post("/register", userControllers.register);
 
 /**
  * @route POST /api/users/login
@@ -22,10 +22,14 @@ router.post('/register', userControllers.register);
  * @param {Object} res - Express response object for sending responses
  * @returns {Object} - Response object containing the message, token, or error details
  */
-router.post('/login', userControllers.loginUser);
+router.post("/login", userControllers.loginUser);
 
-router.get('/profile',requireAuthentication, userControllers.profile)
-
+/**
+ * @method - POST
+ * @param {string} path - /api/users/profile
+ * @description - fetch user profile data
+ */
+router.get("/profile", requireAuthentication, userControllers.profile);
 
 /**
  * @method - POST
@@ -34,4 +38,21 @@ router.get('/profile',requireAuthentication, userControllers.profile)
  */
 router.post("/reauth", userControllers.refreshAccessToken);
 
+/**
+ * @method - POST
+ * @param {string} path - /api/users/logout
+ * @description - User Logout
+ */
+router.post("/logout", requireAuthentication, userControllers.logout);
+
+/**
+ * @method - POST
+ * @param {string} path - /api/users/master-logout
+ * @description - User Logout from all devices
+ */
+router.post(
+  "/master-logout",
+  requireAuthentication,
+  userControllers.logoutAllDevices
+);
 export default router;

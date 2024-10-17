@@ -1,5 +1,4 @@
 import { apiInstance } from "./apiInstence";
-import { store } from "../Redux/store";
 
 
 /**
@@ -60,3 +59,38 @@ export const refreshAccessToken = async () => {
     }
   };
   
+
+/**
+ * Logout API endpoint
+ * @returns {Promise} - No response body
+ */
+export const logout = async () => {
+  try {
+    const response = await apiInstance.post("/logout", { 
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    console.error("Error logging out:", error);
+    throw error.response ? error.response.data : new Error(error.message); 
+  }
+};
+
+/**
+ * logoutEveryDevice API endpoint
+ * @returns {Promise} - No response body
+ */
+export const logoutEveryDevice = async () => {
+  try {
+    const response = await apiInstance.post("/master-logout", { 
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    console.error("Error logging out:", error);
+    throw error.response ? error.response.data : new Error(error.message); 
+  }
+};
+
+
+

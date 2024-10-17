@@ -2,6 +2,7 @@ import axios from "axios";
 import { store } from "../Redux/store";
 import { refreshAccessToken } from "./postApi";
 import { setAccessToken } from "../Redux/feathers/auth";
+import logError from "./errorHandler";
 console.log(import.meta.env.VITE_API_URL);
 
 export const apiInstance = axios.create({
@@ -31,7 +32,7 @@ apiInstance.interceptors.request.use(
     return config;
   },
   (error) => {
-    // logError(error, store);
+    logError(error, store);
     return Promise.reject(error);
   }
 );
@@ -83,7 +84,7 @@ function attachResponseInterceptor() {
         }
       }
 
-    //    logError(error, store); // Log error (ensure you have a logError function)
+       logError(error, store); 
       return Promise.reject(error);
     }
   );

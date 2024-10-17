@@ -18,6 +18,8 @@ const REFRESH_TOKEN = {
 // const RESET_PASSWORD_TOKEN = {
 //   expiry: process.env.RESET_PASSWORD_TOKEN_EXPIRY_MINS,
 // };
+
+
 const UserSchema = new Schema({
   username: {
     type: String,
@@ -37,7 +39,28 @@ const UserSchema = new Schema({
       token: { required: true, type: String },
     },
   ],
+  phone: {
+    type: String,
+    default: '',
+  },
+  gender: {
+    type: String,
+    enum: ['male', 'female', 'other'],
+    default: 'other',
+  },
+  locationName: {
+    type: String,
+    default: '',
+  },
 });
+
+UserSchema.pre('save', function (next) {
+  if (this.isModified('username') || this.isModified('email') || this.isModified('password')) {
+    this.updatedAt = Date.now(); // Update timestamp
+  }
+  next();
+});
+
 
 UserSchema.pre("save", async function (next) {
   try {
