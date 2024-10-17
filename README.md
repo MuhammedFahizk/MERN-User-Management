@@ -87,8 +87,8 @@ A user profile management application built with React and Node.js. It allows us
 
 This application uses JSON Web Tokens (JWT) for user authentication. Upon successful login, the server issues an access token and a refresh token:
 
-- **Access Token**: This is a short-lived token (typically valid for 15-30 minutes) that is included in the Authorization header as a Bearer token for requests to protected routes.
-- **Refresh Token**: This is a long-lived token (valid for days or weeks) used to obtain a new access token once the original has expired. It is sent to the server when the access token expires to generate a new access token without requiring the user to log in again.
+- **Access Token**: This is a short-lived token (typically valid for 15 minutes) that is included in the Authorization header as a Bearer token for requests to protected routes.
+- **Refresh Token**: This is a long-lived token (valid for 7 days ) used to obtain a new access token once the original has expired. It is sent to the server when the access token expires to generate a new access token without requiring the user to log in again.
 
 ## Contributing 🤝
 
