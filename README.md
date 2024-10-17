@@ -54,7 +54,6 @@ A user profile management application built with React and Node.js. It allows us
 
 ### Scripts
 - `start`: Starts the Node.js server.
-- `test`: Placeholder script for running tests.
 
 ## Client Setup
 
