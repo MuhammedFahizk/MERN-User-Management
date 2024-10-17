@@ -1,5 +1,5 @@
 import { apiInstance } from "./apiInstence";
-
+import { store } from "../Redux/store";
 
 
 /**
@@ -10,6 +10,8 @@ import { apiInstance } from "./apiInstence";
  * 
  */
 export const loginUser = async (data) => {
+ 
+
   try {
     const response = await apiInstance.post("/login", data);
     console.log(response);
@@ -37,3 +39,24 @@ export const signupUser = async (data) => {
       throw error.response ? error.response.data : new Error(error.message);
     }
   };
+
+
+/**
+ * refreshAccessToken API endpoint
+ * Refreshes the access token by sending a request to the /reauth endpoint.
+ * 
+ * @returns {Promise<object>} - The response containing the new access token.
+ * @throws {Error} - Throws an error if the refresh request fails.
+ */
+export const refreshAccessToken = async () => {
+    try {
+      const response = await apiInstance.post("/reauth", {}, {
+        withCredentials: true, // Ensure the cookies are sent with the request
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error refreshing access token:", error);
+      throw error.response ? error.response.data : new Error(error.message);
+    }
+  };
+  

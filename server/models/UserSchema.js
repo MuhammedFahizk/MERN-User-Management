@@ -7,12 +7,14 @@ dotenv.config();
 
 const ACCESS_TOKEN = {
   secret: process.env.AUTH_ACCESS_TOKEN_SECRET,
-  expiry: process.env.AUTH_ACCESS_TOKEN_EXPIRY,
+  expiry: "15m", 
 };
+
 const REFRESH_TOKEN = {
   secret: process.env.AUTH_REFRESH_TOKEN_SECRET,
-  expiry: process.env.AUTH_REFRESH_TOKEN_EXPIRY,
+  expiry: "7d",
 };
+
 // const RESET_PASSWORD_TOKEN = {
 //   expiry: process.env.RESET_PASSWORD_TOKEN_EXPIRY_MINS,
 // };

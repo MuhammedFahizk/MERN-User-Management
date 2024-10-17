@@ -1,5 +1,6 @@
 import express from 'express';
 import userControllers  from '../controllers/index.js'
+import { requireAuthentication } from '../middleware/autchCheck.js';
 
 const router = express.Router();
 
@@ -22,5 +23,15 @@ router.post('/register', userControllers.register);
  * @returns {Object} - Response object containing the message, token, or error details
  */
 router.post('/login', userControllers.loginUser);
+
+router.get('/profile',requireAuthentication, userControllers.profile)
+
+
+/**
+ * @method - POST
+ * @param {string} path - /api/users/reauth
+ * @description - Refresh Access Token
+ */
+router.post("/reauth", userControllers.refreshAccessToken);
 
 export default router;

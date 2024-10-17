@@ -1,5 +1,5 @@
 import { User } from "../models/UserSchema.js";
-
+import jwt from "jsonwebtoken";
 // Top-level constants
 const REFRESH_TOKEN = {
   secret: process.env.AUTH_REFRESH_TOKEN_SECRET,
@@ -87,3 +87,70 @@ export const loginUser = async (req, res) => {
     });
   }
 };
+
+
+/*
+  5. REGENERATE NEW ACCESS TOKEN
+*/
+export const refreshAccessToken = async (req, res, next) => {
+  try {
+    const cookies = req.cookies;
+    const refreshToken = cookies[REFRESH_TOKEN.cookie.name];
+    
+    if (!refreshToken) {
+      throw new AuthorizationError(
+        "Authentication error!",
+        undefined,
+        "You are unauthenticated",
+        {
+          realm: "Obtain new Access Token",
+          error: "no_rft",
+          error_description: "Refresh Token is missing!",
+        }
+      );
+    }
+
+    const decodedRefreshTkn = jwt.verify(refreshToken, REFRESH_TOKEN.secret);
+    
+    const userWithRefreshTkn = await User.findOne({
+      _id: decodedRefreshTkn._id,
+      "tokens.token": refreshToken,
+    });
+    if (!userWithRefreshTkn)
+      throw new AuthorizationError(
+        "Authentication Error",
+        undefined,
+        "You are unauthenticated!",
+        {
+          realm: "Obtain new Access Token",
+        }
+      );
+
+    // GENERATE NEW ACCESSTOKEN
+    const newAtkn = await userWithRefreshTkn.generateAccessToken();
+      console.log('newAtkn', newAtkn);
+      
+    res.status(201);
+    res.set({ "Cache-Control": "no-store", Pragma: "no-cache" });
+
+    // Send response with NEW accessToken
+    res.json({
+      success: true,
+      accessToken: newAtkn,
+    });
+  } catch (error) {
+    console.log('error',error);
+    
+    if (error?.name === "JsonWebTokenError") {
+      next(
+        new AuthorizationError(error, undefined, "You are unauthenticated", {
+          realm: "Obtain new Access Token",
+          error_description: "token error",
+        })
+      );
+      return;
+    }
+    next(error);
+  }
+};
+

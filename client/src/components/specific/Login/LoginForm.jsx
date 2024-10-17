@@ -7,9 +7,12 @@ import Div from "../../common/Div";
 import Text from "../../common/Text";
 import { loginUser } from "../../../services/postApi";
 import { setAccessToken } from '../../../Redux/feathers/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
@@ -22,6 +25,7 @@ const Login = () => {
       const {accessToken} = response.data;
       dispatch(setAccessToken(accessToken))
       notification.success({ message: "Signup successful!", description: response.message });
+      navigate('/home');
     } catch (error) {
       notification.error({ message: "Signup failed", description: error.message });
     }
